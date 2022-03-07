@@ -1,0 +1,32 @@
+﻿
+@model IEnumerable<Product>
+
+
+@foreach (Product item in Model)
+					{
+						<div class="col-lg-4 col-md-6  ">
+							<div class="product__item ">
+								
+								<div class="product__item__pic set-bg" style="border-radius: 1rem 1rem 0rem 0rem; background-image: url(&quot;/Uploads/@item.ProductImages.FirstOrDefault().image&quot;);" data-setbg="/Uploads/@item.ProductImages.FirstOrDefault().image">
+									<ul class="product__hover">
+										<li><a href="/Uploads/@item.ProductImages.FirstOrDefault().image." class="image-popup"><span class="arrow_expand"></span></a></li>
+										<li><a href="#"><span class="icon_heart_alt"></span></a></li>
+										<li><a asp-action="Details" asp-route-id="@item.Id"><span class="icon_bag_alt"></span></a></li>
+									</ul>
+								</div>
+								<a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id" style="display: block;">
+									<div class="product__item__text hover">
+										<h4 asp-action="Details"   asp-route-id="@item.Id"class="hover2"> @item.Name</h4>
+										<div class="rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div>
+										<div class="product__price">$ @item.Price</div>
+									</div>
+								</a>
+							</div>
+						</div>
+}

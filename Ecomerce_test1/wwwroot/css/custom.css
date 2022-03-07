@@ -1,0 +1,41 @@
+﻿.custom {
+    border: 2px solid #dfd9d9;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    background-color: #9dc5c3;
+    background-image: linear-gradient(315deg, #9dc5c3 0%, #5e5c5c 74%);
+    display: inline-block;
+    margin-bottom: .75rem;
+    color: white;
+}
+
+    .custom:hover {
+        border: 2px solid #766f6f;
+        padding: 0.5rem;
+        border-radius: 2rem;
+        background-color: #ffffff;
+        background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+        color: black;
+    }
+
+.hover {
+    background-color: #f5f5f1;
+    background-image: linear-gradient(315deg, #f5f5f1 0%, #e50914 74%);
+    border-radius: 0rem 0rem 1rem 1rem;
+    transition: .5s;
+}
+
+    .hover:hover {
+        background-image: linear-gradient(115deg, #f5f5f1 0%, #e50914 74%);
+    }
+
+    .hover h4 {
+        color: white
+    }
+
+    .hover:hover h4 {
+        color: black;
+    }
+.hover {
+    color: white;
+}   

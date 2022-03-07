@@ -1,0 +1,110 @@
+﻿@model RegisterModel
+
+@{
+    ViewData["Title"] = "regisrtation";
+   
+}
+
+<h1>regisrtation</h1>
+
+<h4>RegisterModel</h4>
+<hr />
+<div>
+    <div style="   max-width: 400px;
+    min-width: 300px;">
+ 
+            
+   
+        <div class="row">
+                
+    <div class="col-md-12 " >
+        <form asp-action="regisrtation" method="post" enctype="multipart/form-data"  >
+            <div asp-validation-summary="All" class="text-danger" ></div>
+                 <div style="border:1px solid black;width: 10rem;height: 11rem;margin: auto;border-radius: 1rem;overflow: hidden;">
+                      <img src="/img/default-user-image.png" alt="Girl in a jacket" style="    border-radius: 1rem;height: 100%; width: 100%;" id="img">
+                       <input type="file" id="imgB" accept="image/*" name="postedFile" style="width: 10rem;height: 11rem;margin-top: 2rem;position: relative ;  top: -120%;  opacity: 0;border-radius: 1rem;"  onchange ="imgBF(this)"/>
+                 </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            
+            @if (ViewBag.roles != null)
+           {
+                  <div class="form-group">  
+                      <p>Select Roles </p>
+                     <div class="mr-5" style="    position: relative; right: -2rem;">
+                        @foreach (var item in ViewBag.roles){
+                        <input type="checkbox" name="roles" value="@item.Id">
+                        <label for="@item.Id"> @item.Name </label><br>
+                        }
+                      </div>
+                 </div>
+           }
+         
+
+    @*       <div class="form-group mt-3">
+            <span>Select File:</span>
+            <input type="file" id="img" accept="image/*" name="postedFile"/>
+            <br/>
+          </div>*@
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
+</div>
+    </div>
+
+
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    function imgBF(le){
+
+             var reader = new FileReader();
+            reader.onload = function (event) {
+                document.getElementById("img").src = event.target.result;
+            };
+
+            reader.readAsDataURL(document.getElementById("imgB").files[0]);
+            console.log(le.value);
+
+
+
+
+     
+    }
+    
+   
+
+
+</script>

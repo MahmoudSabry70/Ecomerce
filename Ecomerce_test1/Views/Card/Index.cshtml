@@ -1,0 +1,145 @@
+﻿@inject SignInManager<ApllecationUser> SignInManager
+@inject UserManager<ApllecationUser> UserManager
+@{
+    string userId= @SignInManager.UserManager.GetUserId(User);
+    int x = 0;
+    int y = 0;
+}
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__links">
+                    <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                    <span>Shopping cart</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Shop Cart Section Begin -->
+<section class="shop-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shop__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Color</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Remove product</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="con">
+                            @if (Model != null)
+                            {
+                                    <partial name="_CartItem"></partial>
+                            }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+              
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn update__btn">
+                        <a asp-controller="Product" asp-action="Index">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+
+    </section>
+   
+ <script>
+        let color;
+      
+        
+
+        function DeleteItem(el){
+            colorf();
+            let quantity=0;
+            let productId=el;
+            let userId= "@userId";
+           
+            console.log(quantity.value)
+            console.log(color)
+            console.log(el)
+            console.log(userId)
+           
+                
+             
+           
+              $.ajax({
+            url: "/Card/deletOnCard",
+            data:{"id":el, "userId":userId,"quantity":quantity.value, "color":color},
+            success: function(result){
+             $("#con").html(result);
+             // $("#div1").html(result);
+             
+         },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+         
+     
+     });
+
+         
+
+        }
+          function addToCard(pid ,qv,cl){
+         
+            
+            let userId= "@userId";
+            console.log(qv.value)
+            console.log(cl)
+            console.log(pid)
+            console.log(userId)
+           
+                
+             
+           
+              $.ajax({
+            url: "/Card/AddToCard",
+            data:{"productId":pid, "userId":userId,"quantity":qv.value, "color":cl },
+            success: function(result){
+             $("#div1").html(result);
+             
+         },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+         
+     
+     });
+         
+
+        }
+
+        function colorf(){
+           var radios = document.getElementsByName('color__radio');
+                for (var i = 0, length = radios.length; i < length; i++) {
+                  if (radios[i].checked) {
+                      color=radios[i].value;
+                    break;
+                  }
+                }
+        }
+
+    </script>

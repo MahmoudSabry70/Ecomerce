@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewData["Title"] = "Admin";
+    @model AdminPage ; 
+}
+
+<h1>Admin</h1>
+
+<a  asp-action="Create" asp-controller="Categories" class="custom" >Create New Catagory</a>
+     <a asp-action="Create" asp-controller="Colors"  class="custom">Create New Color</a>
+    <a asp-action="Create" asp-controller="Product" class="custom">Create New Product </a>
+<br />
+    <a  asp-action="Index" asp-controller="Categories" class="custom" >Update or Remove Catagory</a>
+     <a asp-action="Index" asp-controller="Colors"  class="custom"> Update or Remove Color</a>
+   @* <a asp-action="Index" asp-controller="Product" class="custom">Update or Remove Product </a>*@
+<br />
+<a  asp-action="AddAdmin" asp-controller="User" class="custom" >Add User With Role </a>
+<a  asp-action="NEw" asp-controller="User" class="custom" >Add User With Role </a>
+
+<h2>Info about website</h2>
+<hr />
+<h4 class="mb-4">Important Number</h4>
+<table class="table table-striped table-dark text-center ">
+  <thead>
+    <tr>
+      <th scope="col">#Info Number</th>
+      <th scope="col">Description</th>
+      <th scope="col">Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Product Number</th>
+      <td>Number of all product in this Ecommerce </td>
+      <td>@Model.productNumber</td>
+    </tr>
+    <tr>
+      <th scope="row">Category Number</th>
+      <td>Number of all Category in this Ecommerce</td>
+      <td>@Model.categoryNumber</td>
+    </tr>
+    <tr>
+      <th scope="row">User Number</th>
+      <td>Number of all User in this Ecommerce</td>
+      <td>@Model.UserNumber</td>
+    </tr>
+    <tr>
+      <th scope="row">Reseller Number</th>
+      <td>Number of all reseller in this Ecommerce</td>
+      <td>@Model.resellerNumber</td>
+    </tr>
+       <tr>
+      <th scope="row">Admin Number</th>
+      <td>Number of all admin in this Ecommerce</td>
+      <td>@Model.AdminNumber</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<h4 class="mb-4">Important Number</h4>
+<table class="table table-striped table-dark text-center ">
+  <thead>
+    <tr>
+      <th scope="col">Category Number</th>
+      <th scope="col">Category Name</th>
+      <th scope="col">Number of product in this category </th>
+    </tr>
+  </thead>
+  <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in @Model.prCategories)
+        {
+            <tr>
+                <th scope="row">@{i++;} @i</th>
+      <td>@item.Key </td>
+      <td>@item.Value</td>
+    </tr> 
+     }
+    
+  
+  </tbody>
+</table>

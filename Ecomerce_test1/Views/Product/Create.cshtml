@@ -1,0 +1,143 @@
+﻿
+@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Create";
+
+    //SelectList CategoryList = new SelectList(ViewBag.Category,"Id","Name");
+    //SelectList ColoreList = new SelectList(ViewBag.Colors,"Id","Color");
+}
+
+<h1>Create</h1>
+@if (@ViewBag.error!=null) {
+    <h1>@ViewBag.error</h1>
+}
+<h4>Product</h4>
+     
+<hr />
+    <div style="   max-width: 400px;
+    min-width: 300px;">
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" method="post" enctype="multipart/form-data" enctype="multipart/form-data">
+
+               <div asp-validation-summary="All" class="text-danger" ></div>
+        
+
+
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Slug" class="control-label"></label>
+                <input asp-for="Slug" class="form-control" />
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublishAt" class="control-label"></label>
+                <input asp-for="PublishAt" class="form-control" />
+                <span asp-validation-for="PublishAt" class="text-danger"></span>
+            </div>
+
+   @*            <div class="form-group">
+                     <label name="Colores" class="control-label">Colores</label>
+             <select class="form-control mt-2" name="Colores"  multiple  >
+                 @if (ViewBag.Category!=null)
+                {
+                    @foreach (var item in ViewBag.Colors)
+                   {
+                        <option value="@item.Id">@item.Color</option>
+                   }
+                }
+            </select>
+              </div>*@
+                   <div class="form-group">  
+                        <a asp-action="Index" asp-controller="Colors" class="control-label custom">Add other Colores</a>
+                     <div class="mr-5" style="    position: relative; right: -2rem;">
+                          @if (ViewBag.ColorsAdd!=null)
+                                {
+                                      @foreach (Colors item in ViewBag.ColorsAdd){
+                                        <input type="checkbox" name="Colores" value="@item.Id">
+                                        <label for="Colores"> @item.Color </label><br>
+                                      }
+                                }
+                       </div>
+                         
+                 </div>
+
+
+
+
+
+         @*   <div class="form-group">
+                   <label name="CatagorysId" class="control-label">Colores</label>
+                  <select class="form-control mt-2" name=CatagorysId  multiple >
+                        @if (ViewBag.Category!=null)
+                {
+                    @foreach (var item in ViewBag.Category)
+                   {
+                       <option value="@item.Id">@item.Name</option>
+                   }
+                }
+                  </select>
+            </div>*@
+
+     <div class="form-group">  
+       <a asp-action="Index" asp-controller="Categories" class="control-label custom" >Add other Categories</a><br />
+           <div class="mr-5" style="    position: relative; right: -2rem;">
+          @if (ViewBag.CategoryAdd!=null)
+                {
+                      @foreach (Category item in ViewBag.CategoryAdd){
+                        <input type="checkbox" name="CatagorysId" value="@item.Id">
+                        <label for="CatagorysId"> @item.Name </label><br>
+                      }
+                }
+            </div>
+   </div>
+
+
+           
+   <div class="gallery"></div>
+
+        <div class="form-group mt-3">
+            <span>Select File:</span>
+            <input type="file" name="postedFiles"  id="imgBF"  multiple onchange ="imgBFs(this)" />
+            <br/>
+          </div>
+
+
+           <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+   </div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+  
+
+}
