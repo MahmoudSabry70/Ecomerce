@@ -3,10 +3,14 @@ using Ecomerce_test1.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 
 namespace Ecomerce_test1.Controllers
@@ -15,10 +19,12 @@ namespace Ecomerce_test1.Controllers
     public class CardController : Controller
     {
         private readonly ApplicationDbContext applicationDbContext;
-        public CardController(ApplicationDbContext _applicationDbContext)
+        private readonly ICompositeViewEngine _viewEngine;
+        public CardController(ApplicationDbContext _applicationDbContext, ICompositeViewEngine viewEngine)
 
         {
             this.applicationDbContext = _applicationDbContext;
+            _viewEngine = viewEngine;
 
         }
         public IActionResult AddToCard(int productId, string color, int quantity, string userId)
@@ -162,8 +168,17 @@ namespace Ecomerce_test1.Controllers
             getInfo();
 
             ViewBag.number = HttpContext.Session.GetInt32("allProductQuantity");
-           return PartialView("_CartItem", applicationDbContext.CartItems.Where(s => s.SessionId == shoppingSessionId).ToList());
+
+            #region send partial view and session as json object 
             // return Json(HttpContext.Session.GetInt32("allProductQuantity"));
+            //return Json( PartialView("_CartItem", applicationDbContext.CartItems.Where(s => s.SessionId == shoppingSessionId).ToList()) );
+            PartialViewResult partialViewResult = 
+                PartialView("_CartItem", applicationDbContext.CartItems.Where(s => s.SessionId == shoppingSessionId).ToList());
+            string viewContent = ConvertViewToString(this.ControllerContext, partialViewResult, _viewEngine);
+
+            #endregion
+
+            return Json(new { message = HttpContext.Session.GetInt32("allProductQuantity"), viewP = viewContent });
         }
 
         private List<Product> GetProductsForSession() {
@@ -176,6 +191,21 @@ namespace Ecomerce_test1.Controllers
             return products;
         }
 
-       
+        #region Convert View To String
+        private string ConvertViewToString(ControllerContext controllerContext, PartialViewResult pvr, ICompositeViewEngine _viewEngine)
+        {
+            using (StringWriter writer = new StringWriter())
+            {
+                ViewEngineResult vResult = _viewEngine.FindView(controllerContext, pvr.ViewName, false);
+                ViewContext viewContext = new ViewContext
+                    (controllerContext, vResult.View, pvr.ViewData, pvr.TempData, writer, new HtmlHelperOptions());
+
+                vResult.View.RenderAsync(viewContext);
+
+                return writer.GetStringBuilder().ToString();
+            }
+        }
+
+        #endregion
     }
 }

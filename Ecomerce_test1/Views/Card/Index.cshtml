@@ -82,16 +82,19 @@
               $.ajax({
             url: "/Card/deletOnCard",
             data:{"id":el, "userId":userId,"quantity":quantity.value, "color":color},
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
             success: function(result){
-             $("#con").html(result);
-             // $("#div1").html(result);
-             
+             $("#con").html(result.viewP);
+             $("#div1").html(result.message);
          },
                 failure: function (response) {
                     alert(response.responseText);
+                    console.log(response.responseText);
                 },
                 error: function (response) {
                     alert(response.responseText);
+                    console.log(response.responseText);
                 }
          
      

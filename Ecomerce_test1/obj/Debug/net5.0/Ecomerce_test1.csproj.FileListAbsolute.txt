@@ -456,3 +456,6 @@ E:\ITI project\c#\MVC\Ecomerce\Ecomerce_test1\obj\Debug\net5.0\Razor\Views\Card\
 E:\ITI project\c#\MVC\Ecomerce\Ecomerce_test1\obj\Debug\net5.0\Razor\Views\Card\_CartItem.cshtml.g.cs
 E:\ITI project\c#\MVC\Ecomerce\Ecomerce_test1\obj\Debug\net5.0\Razor\Views\Product\Details.cshtml.g.cs
 E:\ITI project\c#\MVC\Ecomerce\Ecomerce_test1\obj\Debug\net5.0\Razor\Views\User\New.cshtml.g.cs
+E:\ITI project\c#\MVC\Ecomerce\Ecomerce_test1\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\ITI project\c#\MVC\Ecomerce\Ecomerce_test1\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+E:\ITI project\c#\MVC\Ecomerce\Ecomerce_test1\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
